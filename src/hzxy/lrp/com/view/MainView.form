@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="hzxy.lrp.com.view.MainView">
+  <grid id="27dc6" binding="MainPanel" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="1094" height="1000"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="12a7f" class="javax.swing.JButton" binding="Employee_Button">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="员工管理"/>
+        </properties>
+      </component>
+      <grid id="b404" binding="CardPanel" layout-manager="CardLayout" hgap="200" vgap="200">
+        <constraints>
+          <grid row="0" column="1" row-span="5" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="c72" class="javax.swing.JTable" binding="Table_View">
+            <constraints>
+              <card name="Card1"/>
+            </constraints>
+            <properties>
+              <autoCreateRowSorter value="false"/>
+              <autoResizeMode value="4"/>
+              <fillsViewportHeight value="false"/>
+              <intercellSpacing width="1" height="1"/>
+              <preferredScrollableViewportSize width="450" height="400"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="1aabc" class="javax.swing.JButton" binding="Address_Button">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="地址管理"/>
+        </properties>
+      </component>
+      <component id="521c" class="javax.swing.JButton" binding="Rubbish_Button">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="垃圾桶管理"/>
+        </properties>
+      </component>
+      <component id="271af" class="javax.swing.JButton" binding="Work_Button">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="调度管理"/>
+        </properties>
+      </component>
+      <component id="afb43" class="javax.swing.JButton" binding="AddButton">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="添加"/>
+        </properties>
+      </component>
+      <component id="8d6e4" class="javax.swing.JButton" binding="ModButton">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="修改"/>
+        </properties>
+      </component>
+      <component id="bd03a" class="javax.swing.JButton" binding="DelButton">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="删除"/>
+        </properties>
+      </component>
+      <component id="c765d" class="javax.swing.JButton" binding="ExitButton">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="退出"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

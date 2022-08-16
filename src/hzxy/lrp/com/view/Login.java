@@ -18,6 +18,9 @@ public class Login {
             public void actionPerformed(ActionEvent e) {
                 String username = Login_username.getText();
                 String password = Login_password.getText();
+                if(username.isEmpty()||password.isEmpty()){
+                    JOptionPane.showMessageDialog(null,"用户名或密码为空","警告",JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
         Reg_Button.addActionListener(new ActionListener() {
