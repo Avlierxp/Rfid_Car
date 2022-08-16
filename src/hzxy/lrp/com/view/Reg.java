@@ -1,5 +1,7 @@
 package hzxy.lrp.com.view;
 
+import hzxy.lrp.com.mysql.MysqlUser;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,10 +24,17 @@ public class Reg {
                 String repasswordText = Reg_repassword.getText();
                 if(usernameText.isEmpty()||passwordText.isEmpty()||repasswordText.isEmpty()){
                     JOptionPane.showMessageDialog(null,"注册用户名或密码为空","警告",JOptionPane.INFORMATION_MESSAGE);
+                    return;
                 }
                 else if(!passwordText.equals(repasswordText)){
                     JOptionPane.showMessageDialog(null,"两次输入密码不一致","警告",JOptionPane.INFORMATION_MESSAGE);
+                    return;
                 }
+                int Regflag = MysqlUser.Reg("admin", usernameText, passwordText);
+                if(Regflag==0)
+                    JOptionPane.showMessageDialog(null,"注册成功","提示",JOptionPane.INFORMATION_MESSAGE);
+                else
+                    JOptionPane.showMessageDialog(null,"该账号已存在","提示",JOptionPane.INFORMATION_MESSAGE);
             }
         });
         Back_Button.addActionListener(new ActionListener() {
@@ -39,7 +48,7 @@ public class Reg {
     }
 
     public static void Reg() {
-        reg = new JFrame("Reg");
+        reg = new JFrame("注册");
         reg.setContentPane(new Reg().Reg);
         reg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         reg.setSize(300,300);
