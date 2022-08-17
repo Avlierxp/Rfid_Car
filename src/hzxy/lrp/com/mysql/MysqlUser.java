@@ -1,6 +1,10 @@
 package hzxy.lrp.com.mysql;
 
+import javax.swing.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.Vector;
 
 public class MysqlUser {
     static Connection conn = null;
@@ -51,6 +55,9 @@ public class MysqlUser {
         return 0;
     }
 
+    /**
+     * 系统注册
+     */
     public static int Reg(String tableName, String username, String password ) {
         String getusername = null;
         String getpassword = null;
@@ -84,123 +91,157 @@ public class MysqlUser {
             return 1;
     }
 
-    /**
-     * 删除goodsName对应的内容
-     */
-    public static void deleteData(String tableName, String goodsName) {
-        int goodsid = searchID(tableName, goodsName);
-        System.out.println(goodsid);
-        if (goodsid != 0) {
-            System.out.println("goodsName = '" + goodsName + "'已经找到，其id为" + goodsid);
-            System.out.println("正在删除......");
-            MysqlUser.deleteData(tableName, goodsid); //调用删除id的方法
-        } else System.out.println("你要删除的 goodsName='" + goodsName + "'未找到，请检查是否输入有误");
-    }
+        // 得到数据库表数据
+        public static Vector getRows(int i){
+            Vector rows = null;
+            Vector columnHeads = null;
+            ResultSet rs = null;
+            try {
+                if(i==1){
+                    String sql = "select * from employee";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==2){
+                    String sql = "select * from address";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==3){
+                    String sql = "select * from rubbish";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==4){
+                    String sql = "select * from rubbishname";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==5){
+                    String sql = "select * from work_address";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==6){
+                    String sql = "select * from work";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
 
-    /**
-     * 功能：搜索goodsName是否存在，若存在则返回id,否则返回0
-     */
-    public static int searchID(String tableName, String goodsName) {
-        int goodsid = 0;
-        ResultSet rs = null;
-        try {
-            String sql = "SELECT * FROM " + tableName;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                goodsid = rs.getInt(1);//第一列
-                String getedName = rs.getString(2);//第二列
-                getedName = getedName.trim();            //去掉空格
-                if (goodsName.equals(getedName)) {
-                    return goodsid;
+                if(rs.wasNull())
+                    JOptionPane.showMessageDialog(null, "结果集中无记录");
+
+                rows = new Vector();
+
+                ResultSetMetaData rsmd = rs.getMetaData();
+
+                while(rs.next()){
+                    rows.addElement(getNextRow(rs,rsmd,i));
+                }
+
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                System.out.println("未成功打开数据库。");
+                e.printStackTrace();
+            }
+            return rows;
+        }
+
+        // 得到数据库表头
+        public static Vector getHead(int i){
+
+            Vector columnHeads = null;
+            ResultSet rs = null;
+            try {
+
+                if(i==1){
+                    String sql = "select * from employee";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==2){
+                    String sql = "select * from address";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==3){
+                    String sql = "select * from rubbish";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==4){
+                    String sql = "select * from rubbishname";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==5){
+                    String sql = "select * from work_address";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+                else if(i==6){
+                    String sql = "select * from work";
+                    System.out.printf(sql);
+                    stmt = conn.createStatement();
+                    rs = stmt.executeQuery(sql);
+                }
+
+                boolean moreRecords = rs.next();
+                if(!moreRecords)
+                    JOptionPane.showMessageDialog(null, "结果集中无记录");
+
+                columnHeads = new Vector();
+                ResultSetMetaData rsmd = rs.getMetaData();
+                for(int j = 1; j <= rsmd.getColumnCount(); j++)
+                    columnHeads.addElement(rsmd.getColumnName(j));
+
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                System.out.println("未成功打开数据库。");
+                e.printStackTrace();
+            }
+            return columnHeads;
+        }
+
+        // 得到数据库中下一行数据
+        private static Vector getNextRow(ResultSet rs,ResultSetMetaData rsmd,int i) throws SQLException{
+            Vector currentRow = new Vector();
+            if(i==6){
+                for(int j = 1; j <= rsmd.getColumnCount(); j++){
+                    if(j==5)
+                        currentRow.addElement(getFormatDate5(rs.getTimestamp(j)));
+                    else
+                        currentRow.addElement(rs.getString(j));
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            else{
+                for(int j = 1; j <= rsmd.getColumnCount(); j++){
+                    currentRow.addElement(rs.getString(j));
+                }
+            }
+            return currentRow;
         }
-        return 0;
+
+    public static String getFormatDate5(Timestamp time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                Locale.CHINESE);
+        String str = "";
+        Timestamp newTime = null;
+        if (time != null){
+            str = sdf.format(time);
+        }
+        return str;
     }
 
-    /**
-     * 通过主键id来删除表内容，仅作为过程
-     */
-    public static void deleteData(String tableName, int id) {
-        try {
-            String sql = "DELETE FROM " + tableName + " WHERE id = " + id;
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
-            System.out.println("id为" + id + "的数据已删除");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 查询表的所有内容
-     */
-    public static void traversalData(String tableName) {
-        ResultSet rs = null;
-        try {
-            String sql = "SELECT * FROM " + tableName;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
-            System.out.println();
-            System.out.println("查询结果如下:");
-            System.out.println("  id  -   goodsName   -   introduce   -   price");
-            while (rs.next()) {
-                String id = rs.getString(1);//第二列
-                String goodsName = rs.getString(2);//第二列
-                String introduce = rs.getString(3);//第三列
-                String price = rs.getString(4);    //第四列
-                System.out.println(id + "    -   " + goodsName + "    -   " + introduce + "   -   " + price);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    /**
-     * 查询单个商品的信息，若不存在则提示不存在
-     */
-
-    public static void selectData(String tableName, String goodsName) {
-        ResultSet rs = null;
-        try {
-            if (MysqlUser.searchID(tableName, goodsName) == 0) {
-                System.out.println("查无此物");
-                return;
-            }
-            String sql = "SELECT * FROM " + tableName;
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
-            System.out.println();
-            System.out.println("查询结果如下:");
-            System.out.println("  id  -   goodsName   -   introduce   -   price");
-            while (rs.next()) {
-                String id = rs.getString(1);//第二列
-                String getedName = rs.getString(2);//第二列
-                getedName = getedName.trim();            //去掉空格
-                String introduce = rs.getString(3);//第三列
-                String price = rs.getString(4);    //第四列
-                if (goodsName.equals(getedName))
-                    System.out.println(id + "    -   " + getedName + "    -   " + introduce + "   -   " + price);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    /**
-     * 重排序ID
-     */
-    public static void resort(String tableName) {
-        try {
-            String sql = "ALTER TABLE commodity_management_system DROP id";
-            String sql2 = "ALTER TABLE commodity_management_system ADD id INT NOT NULL PRIMARY KEY auto_increment first";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sql2);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

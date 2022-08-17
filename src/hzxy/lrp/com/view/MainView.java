@@ -1,82 +1,59 @@
 package hzxy.lrp.com.view;
 
+import hzxy.lrp.com.mysql.MysqlUser;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainView {
     private static JFrame mainview;
-    private JPanel MainPanel;
-    private JButton Employee_Button;
-    private JButton Address_Button;
-    private JButton Rubbish_Button;
-    private JButton Work_Button;
-    private JPanel CardPanel;
-    private JTable Table_View;
-    private JButton AddButton;
-    private JButton ModButton;
-    private JButton DelButton;
-    private JButton ExitButton;
+    private JPanel MainView;
+    private JButton ren_Button;
+    private JButton dizhi_Button;
+    private JButton lajitong_Button;
+    private JButton diaodu_Button;
+    private JButton back_Button;
+
+    public static void MainView() {
+        mainview = new JFrame("功能选择");
+        mainview.setContentPane(new MainView().MainView);
+        mainview.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainview.setSize(400,400);
+        mainview.setLocationRelativeTo(null);
+        mainview.setVisible(true);
+    }
 
     public MainView() {
-        Employee_Button.addActionListener(new ActionListener() {
+        ren_Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        Address_Button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        Rubbish_Button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        Work_Button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        AddButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        ModButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        DelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        ExitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Login login = new Login();
-                login.Login();
+                MyFrame.MyFrame_show(1);
                 mainview.dispose();
             }
         });
-    }
+        dizhi_Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MyFrame.MyFrame_show(2);
+                mainview.dispose();
+            }
+        });
+        lajitong_Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RubbishView.RubbishView();
+                mainview.dispose();
+            }
+        });
+        diaodu_Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                WorkView.WorkView();
+                mainview.dispose();
+            }
+        });
 
-    public static void MainView() {
-        mainview = new JFrame("管理界面");
-        mainview.setContentPane(new MainView().MainPanel);
-        mainview.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainview.setSize(600,450);
-        mainview.setLocationRelativeTo(null);
-        mainview.setVisible(true);
+
     }
 }
