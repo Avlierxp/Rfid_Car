@@ -55,5 +55,12 @@ public class MainView {
         });
 
 
+        back_Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Login.Login();
+                mainview.dispose();
+            }
+        });
     }
 }

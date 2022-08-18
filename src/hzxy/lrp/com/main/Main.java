@@ -5,7 +5,7 @@ import hzxy.lrp.com.view.Login;
 
 public class Main {
     public static void main(String[] args) {
-        MysqlUser.jdbcLogin("jdbc:mysql://183.56.198.63:3306/rfid_car","root","sfk53wy86...");
+        MysqlUser.jdbcLogin("jdbc:mysql://183.56.198.63:3306/rfid_car?useUnicode=true&characterEncoding=UTF-8","root","sfk53wy86...");
         Login login = new Login();
         login.Login();
     }

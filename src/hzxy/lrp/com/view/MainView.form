@@ -40,7 +40,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="返回"/>
+          <text value="退出登录"/>
         </properties>
       </component>
       <vspacer id="1d257">

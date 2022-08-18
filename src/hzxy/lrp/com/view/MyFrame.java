@@ -131,7 +131,7 @@ public class MyFrame extends JFrame{
                 }
 
                 // 以下均为对数据库的操作
-                String sql_url = "jdbc:mysql://183.56.198.63:3306/rfid_car";	//数据库路径（一般都是这样写），haha是数据库名称
+                String sql_url = "jdbc:mysql://183.56.198.63:3306/rfid_car?useUnicode=true&characterEncoding=UTF-8";	//数据库路径（一般都是这样写），haha是数据库名称
                 String name = "root";		//用户名
                 String password = "sfk53wy86...";	//密码
                 Connection conn;
@@ -143,47 +143,48 @@ public class MyFrame extends JFrame{
                     if(!conn.isClosed())
                         System.out.println("成功连接数据库");
                     if(frameflag==1){
-                        preparedStatement = conn.prepareStatement("delete from aa where true");
+                        preparedStatement = conn.prepareStatement("delete from employee where id");
                         preparedStatement.executeUpdate();
 
                         for(int i = 0; i < row; i++){
-                            preparedStatement = conn.prepareStatement("insert into aa values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "')");
+                            preparedStatement = conn.prepareStatement("insert into employee values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "','"+Integer.parseInt(value[i][2])+ "','" + value[i][3] + "','"+   value[i][4] + "'"+")");
+                            System.out.println(value[i][1]);
                             preparedStatement.executeUpdate();
                         }
                     }
                     else if(frameflag==2){
-                        preparedStatement = conn.prepareStatement("delete from aa where true");
+                        preparedStatement = conn.prepareStatement("delete from address where id");
                         preparedStatement.executeUpdate();
 
                         for(int i = 0; i < row; i++){
-                            preparedStatement = conn.prepareStatement("insert into aa values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "')");
+                            preparedStatement = conn.prepareStatement("insert into address values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "','" + value[i][2] + "')");
                             preparedStatement.executeUpdate();
                         }
                     }
                     else if(frameflag==3){
-                        preparedStatement = conn.prepareStatement("delete from aa where true");
+                        preparedStatement = conn.prepareStatement("delete from rubbish where id");
                         preparedStatement.executeUpdate();
 
                         for(int i = 0; i < row; i++){
-                            preparedStatement = conn.prepareStatement("insert into aa values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "')");
+                            preparedStatement = conn.prepareStatement("insert into rubbish values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "',"+Integer.parseInt(value[i][2])+","+Integer.parseInt(value[i][3])+")");
                             preparedStatement.executeUpdate();
                         }
                     }
                     else if(frameflag==4){
-                        preparedStatement = conn.prepareStatement("delete from aa where true");
+                        preparedStatement = conn.prepareStatement("delete from rubbishname where id");
                         preparedStatement.executeUpdate();
 
                         for(int i = 0; i < row; i++){
-                            preparedStatement = conn.prepareStatement("insert into aa values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "')");
+                            preparedStatement = conn.prepareStatement("insert into rubbishname values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "')");
                             preparedStatement.executeUpdate();
                         }
                     }
                     else if(frameflag==5){
-                        preparedStatement = conn.prepareStatement("delete from aa where true");
+                        preparedStatement = conn.prepareStatement("delete from work_address where id");
                         preparedStatement.executeUpdate();
 
                         for(int i = 0; i < row; i++){
-                            preparedStatement = conn.prepareStatement("insert into aa values(" + Integer.parseInt(value[i][0]) + ",'" + value[i][1] + "')");
+                            preparedStatement = conn.prepareStatement("insert into work_address values(" + Integer.parseInt(value[i][0]) + "," + Integer.parseInt(value[i][1]) + ","+Integer.parseInt(value[i][2])+")");
                             preparedStatement.executeUpdate();
                         }
                     }
